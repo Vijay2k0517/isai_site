@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation'
 // Navigation Component (shared)
 const Navigation = () => {
   const [activeSection, setActiveSection] = useState('blog')
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef()
 
   const navItems = [
     { name: 'Home', href: '/', section: 'home' },
@@ -21,26 +23,67 @@ const Navigation = () => {
     { name: 'Contact', href: '/contact', section: 'contact' },
   ]
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true)
+    }, { threshold: 0.3 })
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <nav className="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 glass-nav rounded-full px-6 py-1.5">
+    <nav ref={ref} className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-4">
       <div className="flex items-center justify-between">
-        <Link href="/" className="isai-font text-2xl font-bold isai-primary mr-8">
-          Isai
+        {/* Logo Image - Left side outside nav */}
+        <Link href="/" className="flex-shrink-0 mr-4">
+          <img 
+            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/image-1759387620201.png" 
+            alt="Logo" 
+            className="h-12 w-12 object-cover rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
+          />
         </Link>
-        <div className="flex space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === item.section
-                  ? 'nav-pill-active text-white'
-                  : 'text-white hover:text-[#EFC1A9]'
-              }`}
+
+        {/* Navigation - Dark theme */}
+        <nav className="glass-nav rounded-full px-6 py-1.5 flex-1 mx-4 shadow-lg">
+          <div className="flex items-center justify-center">
+            <div className="flex space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
+                    activeSection === item.section
+                      ? 'nav-pill-active text-white'
+                      : 'text-white hover:text-[#EFC1A9]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        {/* Phone Number - Right side outside nav */}
+        <div className="flex-shrink-0 ml-4">
+          <div className="glass-nav rounded-full px-4 py-2 shadow-lg flex items-center space-x-2">
+            <svg 
+              className="w-4 h-4 text-white" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
             >
-              {item.name}
-            </Link>
-          ))}
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
+              />
+            </svg>
+            <span className="text-white font-semibold text-sm md:text-base">
+              78069 29935
+            </span>
+          </div>
         </div>
       </div>
     </nav>
@@ -300,18 +343,18 @@ const InstagramFeed = () => {
   ]
 
   return (
-    <section ref={ref} className="py-16 px-4 bg-gray-50">
+    <section ref={ref} className="py-16 px-4" style={{ backgroundColor: '#2B2B2B' }}>
       <div className="container mx-auto max-w-6xl">
         <div className={`text-center mb-12 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <h2 className="isai-font text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="isai-font text-4xl font-bold mb-4" style={{ color: '#EFC1A9' }}>
             Follow Us on Instagram
           </h2>
-          <p className="text-gray-600">@isai.cafe</p>
+          <p style={{ color: '#FFFFFF' }}>@isai.artcafe</p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
           {instagramPosts.map((post, index) => (
             <div
               key={post.id}
@@ -335,10 +378,17 @@ const InstagramFeed = () => {
         </div>
 
         <div className="text-center mt-8">
-          <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white">
-            <Instagram className="w-4 h-4 mr-2" />
-            Follow @isai.cafe
-          </Button>
+          <a 
+            href="https://www.instagram.com/isai.artcafe/?hl=en" 
+            target="_blank"
+            className="inline-block"
+            style={{ filter: 'drop-shadow(0 0 10px rgba(239, 193, 169, 0.3))' }}
+          >
+            <Button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white hover:shadow-lg transition-all">
+              <Instagram className="w-4 h-4 mr-2" />
+              Follow @isai.artcafe
+            </Button>
+          </a>
         </div>
       </div>
     </section>
@@ -370,15 +420,15 @@ const SocialVideoSection = () => {
   }, [])
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-white">
+    <section ref={ref} className="py-20 px-4" style={{ backgroundColor: '#1E1E1E' }}>
       <div className="container mx-auto max-w-6xl">
         <div className={`grid grid-cols-1 lg:grid-cols-2 gap-10 items-start transition-all duration-700 ${isVisible ? 'opacity-100' : 'opacity-0 translate-y-4'}`}>
           <div>
-            <h3 className="isai-font text-3xl font-bold mb-6">Instagram</h3>
+            <h3 className="isai-font text-3xl font-bold mb-6" style={{ color: '#EFC1A9' }}>Instagram</h3>
             <InstagramFeed />
           </div>
           <div>
-            <h3 className="isai-font text-3xl font-bold mb-6">YouTube</h3>
+            <h3 className="isai-font text-3xl font-bold mb-6" style={{ color: '#EFC1A9' }}>YouTube</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {youtubeItems.length > 0 ? (
                 youtubeItems.map((v) => (
@@ -420,20 +470,20 @@ const BlogListing = () => {
   }, [])
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-white">
+    <section ref={ref} className="py-20 px-4" style={{ backgroundColor: '#2B2B2B' }}>
       <div className="container mx-auto max-w-6xl">
         <div className={`text-center mb-12 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <h2 className="isai-font text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="isai-font text-4xl font-bold mb-4" style={{ color: '#EFC1A9' }}>
             Latest Stories
           </h2>
-          <p className="text-gray-600 text-lg">
+          <p className="text-lg" style={{ color: '#FFFFFF' }}>
             Insights from our culinary and musical journey
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {blogPosts.map((post, index) => (
             <BlogPostCard key={post.id} post={post} index={index} />
           ))}
@@ -483,13 +533,10 @@ const Footer = () => {
           <div>
             <h3 className="font-semibold mb-4">Follow Us</h3>
             <div className="flex space-x-4 mb-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.instagram.com/isai.artcafe/?hl=en" target="_blank" className="text-gray-400 hover:text-[#EFC1A9] transition-colors">
                 <Instagram size={24} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
-                <Facebook size={24} />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="https://www.youtube.com/watch?v=jLRAxmMpYE" target="_blank" className="text-gray-400 hover:text-white transition-colors">
                 <Youtube size={24} />
               </a>
             </div>
@@ -497,7 +544,7 @@ const Footer = () => {
             <div className="space-y-2 text-sm text-gray-400">
               <div className="flex items-center">
                 <Phone size={16} className="mr-2" />
-                +91 98765 43210
+                78069 29935
               </div>
               <div className="flex items-center">
                 <Mail size={16} className="mr-2" />
@@ -505,7 +552,15 @@ const Footer = () => {
               </div>
               <div className="flex items-center">
                 <MapPin size={16} className="mr-2" />
-                123 Art Street, Music District
+                4/408, Anna Salai Rd, Palavakkam, Chennai
+              </div>
+              <div className="flex items-start">
+                <Clock size={16} className="mr-2 mt-0.5" />
+                <div className="text-xs">
+                  <div>Sat-Sun: 11am-10pm</div>
+                  <div>Mon,Wed-Fri: 5pm-10pm</div>
+                  <div>Tue: Closed</div>
+                </div>
               </div>
             </div>
           </div>
@@ -519,12 +574,69 @@ const Footer = () => {
   )
 }
 
+// YouTube Video Section
+const YouTubeSection = () => {
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef()
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true)
+        }
+      },
+      { threshold: 0.1 }
+    )
+
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <section ref={ref} className="py-12 md:py-16 lg:py-20 px-4" style={{ backgroundColor: '#1E1E1E' }}>
+      <div className="container mx-auto max-w-6xl">
+        <div className={`text-center mb-8 md:mb-12 transition-all duration-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <h2 className="isai-font text-3xl md:text-4xl font-bold mb-4" style={{ color: '#EFC1A9' }}>
+            Watch Our Story
+          </h2>
+          <p className="text-base md:text-lg" style={{ color: '#FFFFFF' }}>
+            Experience Isai Café through our video
+          </p>
+        </div>
+
+        <div className={`transition-all duration-700 delay-300 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+        }`}>
+          <div className="max-w-4xl mx-auto">
+            <div className="aspect-video rounded-lg overflow-hidden shadow-2xl">
+              <iframe
+                src="https://www.youtube.com/embed/jLRAxmMpYE"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Isai Café Video"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
 // Main Blog Component
 export default function Blog() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" style={{ backgroundColor: '#1E1E1E' }}>
       <Navigation />
       <BlogHero />
+      <YouTubeSection />
       <SocialVideoSection />
       <BlogListing />
       <Footer />

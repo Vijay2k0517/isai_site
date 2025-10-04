@@ -156,13 +156,13 @@ const SplitTextReveal = () => {
   }, [])
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-white">
+    <section ref={ref} className="py-20 px-4" style={{ backgroundColor: '#333333' }}>
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Text */}
           <div className="space-y-8" style={{ transform: `translateY(${offsets.text}px)` }}>
             <div className={`split-text ${isVisible ? 'split-text-revealed' : ''}`}>
-              <h2 className="isai-font text-4xl md:text-5xl font-bold text-gray-900 leading-tight">
+              <h2 className="isai-font text-4xl md:text-5xl font-bold leading-tight" style={{ color: '#EFC1A9' }}>
                 <span className="split-text-line">
                   <span className="split-text-word">Where</span> <span className="split-text-word">Classical</span>
                 </span>
@@ -176,12 +176,12 @@ const SplitTextReveal = () => {
             <div className={`transition-all duration-1000 delay-500 ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
+              <p className="text-lg leading-relaxed mb-6" style={{ color: '#FFFFFF' }}>
                 Isai was born from a simple dream: to create a space where the timeless beauty of 
                 classical music meets the comfort of home. Our founders, both musicians and culinary 
                 enthusiasts, envisioned a café that would nourish both body and soul.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
                 Every corner of our space is thoughtfully designed to inspire creativity, foster 
                 connection, and celebrate the art of living well. From our carefully curated 
                 playlist to our artisanal coffee, everything is crafted with intention and love.
@@ -233,7 +233,7 @@ const HistorySection = () => {
   }, [])
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-gray-50">
+    <section ref={ref} className="py-20 px-4" style={{ backgroundColor: '#2B2B2B' }}>
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Image */}
@@ -252,19 +252,19 @@ const HistorySection = () => {
           <div className={`space-y-8 transition-all duration-1000 delay-300 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
           }`} style={{ transform: `translateY(${scatter.right}px)` }}>
-            <h3 className="isai-font text-4xl font-bold text-gray-900">Our Heritage</h3>
+            <h3 className="isai-font text-4xl font-bold" style={{ color: '#EFC1A9' }}>Our Heritage</h3>
             <div className="space-y-6">
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
                 Founded in 2018, Isai began as a small neighborhood café with big dreams. 
                 Our name, meaning "music" in Tamil, reflects our deep connection to the 
                 cultural richness of classical traditions.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
                 What started as a passion project has grown into a beloved community hub, 
                 where locals gather for morning coffee, artists find inspiration, and 
                 music lovers discover new melodies over carefully prepared meals.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
                 Today, we continue to honor our founding principles: exceptional quality, 
                 warm hospitality, and the belief that food and music are the universal 
                 languages of human connection.
@@ -302,29 +302,29 @@ const ThemeSection = () => {
   }, [])
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-white">
+    <section ref={ref} className="py-20 px-4" style={{ backgroundColor: '#333333' }}>
       <div className="container mx-auto max-w-6xl">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Text */}
           <div className={`space-y-8 transition-all duration-1000 ${
             isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
           }`}>
-            <h3 className="isai-font text-4xl font-bold text-gray-900">Our Philosophy</h3>
+            <h3 className="isai-font text-4xl font-bold" style={{ color: '#EFC1A9' }}>Our Philosophy</h3>
             <div className="space-y-6">
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
                 At Isai, we believe that dining is a multisensory experience. The gentle 
                 melodies of classical compositions create the perfect backdrop for meaningful 
                 conversations and moments of reflection.
               </p>
-              <p className="text-lg text-gray-700 leading-relaxed">
+              <p className="text-lg leading-relaxed" style={{ color: '#FFFFFF' }}>
                 Our menu draws inspiration from traditional recipes while embracing modern 
                 techniques. Each dish is crafted to complement our acoustic environment, 
                 creating harmony between taste, sound, and atmosphere.
               </p>
               <div className="grid grid-cols-2 gap-6 mt-8">
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Our Values</h4>
-                  <ul className="text-gray-700 space-y-1">
+                  <h4 className="font-semibold mb-2" style={{ color: '#EFC1A9' }}>Our Values</h4>
+                  <ul className="space-y-1" style={{ color: '#FFFFFF' }}>
                     <li>• Artistic Excellence</li>
                     <li>• Cultural Appreciation</li>
                     <li>• Community Connection</li>
@@ -332,8 +332,8 @@ const ThemeSection = () => {
                   </ul>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-gray-900 mb-2">Experience</h4>
-                  <ul className="text-gray-700 space-y-1">
+                  <h4 className="font-semibold mb-2" style={{ color: '#EFC1A9' }}>Experience</h4>
+                  <ul className="space-y-1" style={{ color: '#FFFFFF' }}>
                     <li>• Live Performances</li>
                     <li>• Art Exhibitions</li>
                     <li>• Cultural Events</li>
