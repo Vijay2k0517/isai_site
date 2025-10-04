@@ -12,7 +12,9 @@ import { Instagram, Facebook, Youtube, Phone, Mail, MapPin, Calendar, Users, Clo
 
 // Navigation Component (shared)
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState('events')
+  const [activeSection, setActiveSection] = useState('blog')
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef()
 
   const navItems = [
     { name: 'Home', href: '/', section: 'home' },
@@ -23,26 +25,67 @@ const Navigation = () => {
     { name: 'Contact', href: '/contact', section: 'contact' },
   ]
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true)
+    }, { threshold: 0.3 })
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <nav className="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 glass-nav rounded-full px-6 py-1.5">
+    <nav ref={ref} className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-4">
       <div className="flex items-center justify-between">
-        <Link href="/" className="isai-font text-2xl font-bold isai-primary mr-8">
-          Isai
+        {/* Logo Image - Left side outside nav */}
+        <Link href="/" className="flex-shrink-0 mr-4">
+          <img 
+            src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/image-1759387620201.png" 
+            alt="Logo" 
+            className="h-12 w-12 object-cover rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
+          />
         </Link>
-        <div className="flex space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === item.section
-                  ? 'nav-pill-active text-white'
-                  : 'text-white hover:text-[#EFC1A9]'
-              }`}
+
+        {/* Navigation - Dark theme */}
+        <nav className="glass-nav rounded-full px-6 py-1.5 flex-1 mx-4 shadow-lg">
+          <div className="flex items-center justify-center">
+            <div className="flex space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
+                    activeSection === item.section
+                      ? 'nav-pill-active text-white'
+                      : 'text-white hover:text-[#EFC1A9]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </nav>
+
+        {/* Phone Number - Right side outside nav */}
+        <div className="flex-shrink-0 ml-4">
+          <div className="glass-nav rounded-full px-4 py-2 shadow-lg flex items-center space-x-2">
+            <svg 
+              className="w-4 h-4 text-white" 
+              fill="none" 
+              stroke="currentColor" 
+              viewBox="0 0 24 24"
             >
-              {item.name}
-            </Link>
-          ))}
+              <path 
+                strokeLinecap="round" 
+                strokeLinejoin="round" 
+                strokeWidth={2} 
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
+              />
+            </svg>
+            <span className="text-white font-semibold text-sm md:text-base">
+              +91 7806929935
+            </span>
+          </div>
         </div>
       </div>
     </nav>
@@ -70,14 +113,14 @@ const EventsHero = () => {
           transform: `translateY(${scrollY * 0.5}px)`,
         }}
       />
-      <div className="absolute inset-0 bg-black bg-opacity-40" />
+      <div className="absolute inset-0 bg-black bg-opacity-30" />
       
       <div className="relative z-10 flex items-center justify-center h-full text-center">
         <div className="max-w-4xl px-4">
-          <h1 className="isai-font text-7xl md:text-8xl font-bold text-white mb-4">
-            Events
+          <h1 className="isai-font text-8xl md:text-9xl font-bold text-white mb-4 animate-fade-in">
+            Event
           </h1>
-          <p className="text-xl md:text-2xl text-white font-light">
+          <p className="text-2xl md:text-3xl text-white font-light tracking-wider">
             Create memorable moments with us
           </p>
         </div>
@@ -96,9 +139,7 @@ const EventBookingForm = () => {
     date: '',
     time: '',
     partySize: '',
-    eventType: '',
-    specialRequests: '',
-    file: null
+    eventType: ''
   })
   const ref = useRef()
 
@@ -135,9 +176,6 @@ const EventBookingForm = () => {
 • Party Size: ${formData.partySize} people
 • Event Type: ${formData.eventType}
 
-📝 *Special Requests:*
-${formData.specialRequests || 'None'}
-
 Looking forward to your confirmation!`
 
     return encodeURIComponent(message)
@@ -152,7 +190,6 @@ Looking forward to your confirmation!`
 
   const handleFormSubmit = (e) => {
     e.preventDefault()
-    // For now, redirect to WhatsApp
     handleWhatsAppBooking()
   }
 
@@ -279,52 +316,14 @@ Looking forward to your confirmation!`
                   </Select>
                 </div>
 
-                <div>
-                  <Label htmlFor="specialRequests">Special Requests</Label>
-                  <Textarea
-                    id="specialRequests"
-                    value={formData.specialRequests}
-                    onChange={(e) => handleInputChange('specialRequests', e.target.value)}
-                    placeholder="Any special requirements, dietary restrictions, or additional information..."
-                    rows={4}
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="file">Attach File (Optional)</Label>
-                  <div className="mt-2">
-                    <Input
-                      id="file"
-                      type="file"
-                      accept=".pdf,.doc,.docx,.txt,.jpg,.jpeg,.png"
-                      onChange={(e) => handleInputChange('file', e.target.files[0])}
-                      className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:bg-isai-primary file:text-white hover:file:bg-opacity-90"
-                    />
-                    <p className="text-sm text-gray-500 mt-1">
-                      Attach any relevant documents or images
-                    </p>
-                  </div>
-                </div>
-
-                <div className="space-y-4">
-                  <Button 
-                    type="submit" 
-                    className="w-full bg-isai-primary hover:bg-isai-primary/90"
-                    disabled={!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time || !formData.partySize || !formData.eventType}
-                  >
-                    Send WhatsApp Enquiry
-                  </Button>
-                  
-                  <Button
-                    type="button"
-                    onClick={handleWhatsAppBooking}
-                    className="w-full bg-green-600 hover:bg-green-700"
-                    disabled={!formData.name || !formData.phone}
-                  >
-                    <MessageCircle className="w-4 h-4 mr-2" />
-                    WhatsApp Enquiry
-                  </Button>
-                </div>
+                <Button 
+                  type="submit" 
+                  className="w-full bg-isai-primary hover:bg-isai-primary/90"
+                  disabled={!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time || !formData.partySize || !formData.eventType}
+                >
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  Send WhatsApp Enquiry
+                </Button>
 
                 <p className="text-sm text-gray-600 text-center">
                   We'll get back to you within 24 hours to confirm your booking
@@ -438,24 +437,24 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-[#0a0a0a] text-white py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <Link href="/" className="isai-font text-3xl font-bold isai-primary">
+            <Link href="/" className="isai-font text-3xl font-bold text-[#EFC1A9]">
               Isai
             </Link>
-            <p className="mt-4 text-gray-400">
+            <p className="mt-4 text-[#a8a8a8]">
               Where music and home blend into one
             </p>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Navigation</h3>
+            <h3 className="font-semibold mb-4 text-[#EFC1A9]">Navigation</h3>
             <ul className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="text-gray-400 hover:text-white transition-colors">
+                  <Link href={item.href} className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -464,37 +463,37 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Follow Us</h3>
+            <h3 className="font-semibold mb-4 text-[#EFC1A9]">Follow Us</h3>
             <div className="flex space-x-4 mb-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Instagram size={24} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Facebook size={24} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Youtube size={24} />
               </a>
             </div>
             
-            <div className="space-y-2 text-sm text-gray-400">
+            <div className="space-y-2 text-sm text-[#a8a8a8]">
               <div className="flex items-center">
-                <Phone size={16} className="mr-2" />
+                <Phone size={16} className="mr-2 text-[#EFC1A9]" />
                 +91 98765 43210
               </div>
               <div className="flex items-center">
-                <Mail size={16} className="mr-2" />
+                <Mail size={16} className="mr-2 text-[#EFC1A9]" />
                 hello@isai.cafe
               </div>
               <div className="flex items-center">
-                <MapPin size={16} className="mr-2" />
+                <MapPin size={16} className="mr-2 text-[#EFC1A9]" />
                 123 Art Street, Music District
               </div>
             </div>
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[#6b6b6b]">
           <p>&copy; 2025 Isai Café. All rights reserved.</p>
         </div>
       </div>

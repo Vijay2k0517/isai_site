@@ -1,4 +1,7 @@
-'use client'
+
+"use client";
+import { Clock } from "lucide-react";   // ✅ Fix here
+import React from "react";
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
@@ -81,7 +84,7 @@ const Navigation = () => {
               />
             </svg>
             <span className="text-white font-semibold text-sm md:text-base">
-              78069 29935
+              +91 7806929935
             </span>
           </div>
         </div>
@@ -111,15 +114,15 @@ const BlogHero = () => {
           transform: `translateY(${scrollY * 0.5}px)`,
         }}
       />
-      <div className="absolute inset-0 bg-black bg-opacity-40" />
+      <div className="absolute inset-0 bg-black bg-opacity-30" />
       
       <div className="relative z-10 flex items-center justify-center h-full text-center">
         <div className="max-w-4xl px-4">
-          <h1 className="isai-font text-7xl md:text-8xl font-bold text-white mb-4">
+          <h1 className="isai-font text-8xl md:text-9xl font-bold text-white mb-4 animate-fade-in">
             Blog
           </h1>
-          <p className="text-xl md:text-2xl text-white font-light">
-            Stories, recipes, and musical inspirations
+          <p className="text-2xl md:text-3xl text-white font-light tracking-wider">
+            Stories, recipes and musical inspirations.
           </p>
         </div>
       </div>
@@ -505,24 +508,24 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-[#0a0a0a] text-white py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <Link href="/" className="isai-font text-3xl font-bold isai-primary">
+            <Link href="/" className="isai-font text-3xl font-bold text-[#EFC1A9]">
               Isai
             </Link>
-            <p className="mt-4 text-gray-400">
+            <p className="mt-4 text-[#a8a8a8]">
               Where music and home blend into one
             </p>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Navigation</h3>
+            <h3 className="font-semibold mb-4 text-[#EFC1A9]">Navigation</h3>
             <ul className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="text-gray-400 hover:text-white transition-colors">
+                  <Link href={item.href} className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -531,42 +534,37 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Follow Us</h3>
+            <h3 className="font-semibold mb-4 text-[#EFC1A9]">Follow Us</h3>
             <div className="flex space-x-4 mb-6">
-              <a href="https://www.instagram.com/isai.artcafe/?hl=en" target="_blank" className="text-gray-400 hover:text-[#EFC1A9] transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Instagram size={24} />
               </a>
-              <a href="https://www.youtube.com/watch?v=jLRAxmMpYE" target="_blank" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
+                <Facebook size={24} />
+              </a>
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Youtube size={24} />
               </a>
             </div>
             
-            <div className="space-y-2 text-sm text-gray-400">
+            <div className="space-y-2 text-sm text-[#a8a8a8]">
               <div className="flex items-center">
-                <Phone size={16} className="mr-2" />
-                78069 29935
+                <Phone size={16} className="mr-2 text-[#EFC1A9]" />
+                +91 98765 43210
               </div>
               <div className="flex items-center">
-                <Mail size={16} className="mr-2" />
+                <Mail size={16} className="mr-2 text-[#EFC1A9]" />
                 hello@isai.cafe
               </div>
               <div className="flex items-center">
-                <MapPin size={16} className="mr-2" />
-                4/408, Anna Salai Rd, Palavakkam, Chennai
-              </div>
-              <div className="flex items-start">
-                <Clock size={16} className="mr-2 mt-0.5" />
-                <div className="text-xs">
-                  <div>Sat-Sun: 11am-10pm</div>
-                  <div>Mon,Wed-Fri: 5pm-10pm</div>
-                  <div>Tue: Closed</div>
-                </div>
+                <MapPin size={16} className="mr-2 text-[#EFC1A9]" />
+                123 Art Street, Music District
               </div>
             </div>
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[#6b6b6b]">
           <p>&copy; 2025 Isai Café. All rights reserved.</p>
         </div>
       </div>

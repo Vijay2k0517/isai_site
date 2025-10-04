@@ -9,7 +9,9 @@ import { Instagram, Facebook, Youtube, Phone, Mail, MapPin } from 'lucide-react'
 
 // Navigation Component
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState('home')
+  const [activeSection, setActiveSection] = useState('blog')
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef()
 
   const navItems = [
     { name: 'Home', href: '/', section: 'home' },
@@ -20,45 +22,46 @@ const Navigation = () => {
     { name: 'Contact', href: '/contact', section: 'contact' },
   ]
 
-  // Set active section based on current path
   useEffect(() => {
-    const path = window.location.pathname
-    const currentSection = navItems.find(item => item.href === path)?.section || 'home'
-    setActiveSection(currentSection)
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true)
+    }, { threshold: 0.3 })
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <div className="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-4">
+    <nav ref={ref} className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-4">
       <div className="flex items-center justify-between">
         {/* Logo Image - Left side outside nav */}
         <Link href="/" className="flex-shrink-0 mr-4">
           <img 
             src="https://slelguoygbfzlpylpxfs.supabase.co/storage/v1/object/public/document-uploads/image-1759387620201.png" 
             alt="Logo" 
-            className="h-9 w-9 object-cover rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
+            className="h-12 w-12 object-cover rounded-full shadow-lg hover:scale-105 transition-transform duration-300"
           />
         </Link>
 
-        {/* Navigation - Much less white background */}
-      <nav className="glass-nav rounded-full px-6 py-1.5 flex-1 mx-4 shadow-lg">
-        <div className="flex items-center justify-center">
-          <div className="flex space-x-6">
-            {navItems.map((item) => (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
-                  activeSection === item.section
-                    ? 'nav-pill-active text-white'
-                    : 'text-white hover:text-[#EFC1A9]'
-                }`}
-              >
-                {item.name}
-              </Link>
-            ))}
+        {/* Navigation - Dark theme */}
+        <nav className="glass-nav rounded-full px-6 py-1.5 flex-1 mx-4 shadow-lg">
+          <div className="flex items-center justify-center">
+            <div className="flex space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
+                    activeSection === item.section
+                      ? 'nav-pill-active text-white'
+                      : 'text-white hover:text-[#EFC1A9]'
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </nav>
+        </nav>
 
         {/* Phone Number - Right side outside nav */}
         <div className="flex-shrink-0 ml-4">
@@ -77,12 +80,12 @@ const Navigation = () => {
               />
             </svg>
             <span className="text-white font-semibold text-sm md:text-base">
-              +1 (555) 123-4567
+              +91 7806929935
             </span>
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   )
 }
 // Hero Section Component

@@ -1,4 +1,8 @@
-'use client'
+
+"use client";
+import { Clock } from "lucide-react";   // ✅ Fix here
+import React from "react";
+
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
@@ -8,7 +12,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 // Navigation Components (shared)
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState('menu')
+  const [activeSection, setActiveSection] = useState('blog')
+  const [isVisible, setIsVisible] = useState(false)
+  const ref = useRef()
 
   const navItems = [
     { name: 'Home', href: '/', section: 'home' },
@@ -19,15 +25,16 @@ const Navigation = () => {
     { name: 'Contact', href: '/contact', section: 'contact' },
   ]
 
-  // Set active section based on current path
   useEffect(() => {
-    const path = window.location.pathname
-    const currentSection = navItems.find(item => item.href === path)?.section || 'home'
-    setActiveSection(currentSection)
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setIsVisible(true)
+    }, { threshold: 0.3 })
+    if (ref.current) observer.observe(ref.current)
+    return () => observer.disconnect()
   }, [])
 
   return (
-    <div className="fixed top-2 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-4">
+    <nav ref={ref} className="fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-7xl px-4">
       <div className="flex items-center justify-between">
         {/* Logo Image - Left side outside nav */}
         <Link href="/" className="flex-shrink-0 mr-4">
@@ -41,23 +48,23 @@ const Navigation = () => {
         {/* Navigation - Dark theme */}
         <nav className="glass-nav rounded-full px-6 py-1.5 flex-1 mx-4 shadow-lg">
           <div className="flex items-center justify-center">
-        <div className="flex space-x-6">
-          {navItems.map((item) => (
-            <Link
-              key={item.name}
-              href={item.href}
-              className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
-                activeSection === item.section
+            <div className="flex space-x-6">
+              {navItems.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`nav-pill px-4 py-2 rounded-full transition-all duration-300 ${
+                    activeSection === item.section
                       ? 'nav-pill-active text-white'
                       : 'text-white hover:text-[#EFC1A9]'
-              }`}
-            >
-              {item.name}
-            </Link>
-          ))}
-        </div>
-      </div>
-    </nav>
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </nav>
 
         {/* Phone Number - Right side outside nav */}
         <div className="flex-shrink-0 ml-4">
@@ -76,12 +83,12 @@ const Navigation = () => {
               />
             </svg>
             <span className="text-white font-semibold text-sm md:text-base">
-              +1 (555) 123-4567
+              +91 7806929935
             </span>
           </div>
         </div>
       </div>
-    </div>
+    </nav>
   )
 }
 
@@ -106,15 +113,15 @@ const MenuHero = () => {
           transform: `translateY(${scrollY * 0.5}px)`,
         }}
       />
-      <div className="absolute inset-0 bg-black bg-opacity-40" />
+      <div className="absolute inset-0 bg-black bg-opacity-30" />
       
       <div className="relative z-10 flex items-center justify-center h-full text-center">
         <div className="max-w-4xl px-4">
-          <h1 className="isai-font text-7xl md:text-8xl font-bold text-white mb-4">
+          <h1 className="isai-font text-8xl md:text-9xl font-bold text-white mb-4 animate-fade-in">
             Menu
           </h1>
-          <p className="text-xl md:text-2xl text-white font-light">
-            A symphony of flavors crafted with love
+          <p className="text-2xl md:text-3xl text-white font-light tracking-wider">
+            A symphony of flavor crafted with love.
           </p>
         </div>
       </div>
@@ -324,8 +331,8 @@ const MenuItem = ({ item }) => {
               {item.category}
             </Badge>
           </div>
+          </div>
         </div>
-      </div>
       
       {/* Modal */}
       <MenuItemModal 
@@ -770,24 +777,24 @@ const Footer = () => {
   ]
 
   return (
-    <footer className="bg-gray-900 text-white py-16">
+    <footer className="bg-[#0a0a0a] text-white py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <Link href="/" className="isai-font text-3xl font-bold isai-primary">
+            <Link href="/" className="isai-font text-3xl font-bold text-[#EFC1A9]">
               Isai
             </Link>
-            <p className="mt-4 text-gray-400">
+            <p className="mt-4 text-[#a8a8a8]">
               Where music and home blend into one
             </p>
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Navigation</h3>
+            <h3 className="font-semibold mb-4 text-[#EFC1A9]">Navigation</h3>
             <ul className="space-y-2">
               {navItems.map((item) => (
                 <li key={item.name}>
-                  <Link href={item.href} className="text-gray-400 hover:text-white transition-colors">
+                  <Link href={item.href} className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                     {item.name}
                   </Link>
                 </li>
@@ -796,37 +803,37 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-semibold mb-4">Follow Us</h3>
+            <h3 className="font-semibold mb-4 text-[#EFC1A9]">Follow Us</h3>
             <div className="flex space-x-4 mb-6">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Instagram size={24} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Facebook size={24} />
               </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors">
+              <a href="#" className="text-[#a8a8a8] hover:text-[#EFC1A9] transition-colors">
                 <Youtube size={24} />
               </a>
             </div>
             
-            <div className="space-y-2 text-sm text-gray-400">
+            <div className="space-y-2 text-sm text-[#a8a8a8]">
               <div className="flex items-center">
-                <Phone size={16} className="mr-2" />
+                <Phone size={16} className="mr-2 text-[#EFC1A9]" />
                 +91 98765 43210
               </div>
               <div className="flex items-center">
-                <Mail size={16} className="mr-2" />
+                <Mail size={16} className="mr-2 text-[#EFC1A9]" />
                 hello@isai.cafe
               </div>
               <div className="flex items-center">
-                <MapPin size={16} className="mr-2" />
+                <MapPin size={16} className="mr-2 text-[#EFC1A9]" />
                 123 Art Street, Music District
               </div>
             </div>
           </div>
         </div>
         
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <div className="border-t border-[#2a2a2a] mt-8 pt-8 text-center text-[#6b6b6b]">
           <p>&copy; 2025 Isai Café. All rights reserved.</p>
         </div>
       </div>
