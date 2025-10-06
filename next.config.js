@@ -1,11 +1,10 @@
+/** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export', // Enable static export
+  reactStrictMode: true,
   trailingSlash: true,
-  distDir: 'out',
   images: {
-    unoptimized: true, // Required for static export
+    domains: ['*'], // optional, adjust if needed
   },
-  // Disable server-side features for static export
   typescript: {
     ignoreBuildErrors: true,
   },
@@ -14,4 +13,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;
