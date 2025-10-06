@@ -12,7 +12,7 @@ import { Instagram, Facebook, Youtube, Phone, Mail, MapPin, Calendar, Users, Clo
 
 // Navigation Component (shared)
 const Navigation = () => {
-  const [activeSection, setActiveSection] = useState('blog')
+  const [activeSection, setActiveSection] = useState('events')
   const [isVisible, setIsVisible] = useState(false)
   const ref = useRef()
 
@@ -68,24 +68,26 @@ const Navigation = () => {
 
         {/* Phone Number - Right side outside nav */}
         <div className="flex-shrink-0 ml-4">
-          <div className="glass-nav rounded-full px-4 py-2 shadow-lg flex items-center space-x-2">
-            <svg 
-              className="w-4 h-4 text-white" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
-              />
-            </svg>
-            <span className="text-white font-semibold text-sm md:text-base">
-              +91 7806929935
-            </span>
-          </div>
+          <a href="tel:+917806929935" className="block">
+            <div className="glass-nav rounded-full px-4 py-2 shadow-lg flex items-center space-x-2 hover:scale-105 transition-transform duration-300 cursor-pointer">
+              <svg 
+                className="w-4 h-4 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
+                />
+              </svg>
+              <span className="text-white font-semibold text-sm md:text-base">
+                +91 7806929935
+              </span>
+            </div>
+          </a>
         </div>
       </div>
     </nav>
@@ -121,13 +123,14 @@ const EventsHero = () => {
             Event
           </h1>
           <p className="text-2xl md:text-3xl text-white font-light tracking-wider">
-            Create memorable moments with us
+            Create memorable moments with us.
           </p>
         </div>
       </div>
     </section>
   )
 }
+
 
 // Event Booking Form Component
 const EventBookingForm = () => {
@@ -150,7 +153,7 @@ const EventBookingForm = () => {
           setIsVisible(true)
         }
       },
-      { threshold: 0.6 }
+      { threshold: 0.3 }
     )
 
     if (ref.current) observer.observe(ref.current)
@@ -194,228 +197,218 @@ Looking forward to your confirmation!`
   }
 
   return (
-    <section ref={ref} className="py-20 px-4 bg-white">
-      <div className="container mx-auto max-w-4xl">
-        <div className={`text-center mb-12 transition-all duration-1000 ${
+    <section ref={ref} className="py-20 px-4 bg-[#1a1a1a]">
+      <div className="container mx-auto max-w-6xl">
+        {/* Header Section */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
         }`}>
-          <h2 className="isai-font text-4xl font-bold text-gray-900 mb-4">
+          <h2 className="isai-font text-5xl font-bold text-[#EFC1A9] mb-6">
             Book Your Event
           </h2>
-          <p className="text-gray-600 text-lg">
-            Let us help you create an unforgettable experience
+          <p className="text-white text-xl max-w-2xl mx-auto leading-relaxed">
+            Let us help you create an unforgettable experience in our intimate musical setting
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Form */}
-          <Card className={`transition-all duration-1000 delay-300 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
-          }`}>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Calendar className="w-5 h-5" />
-                Event Booking Form
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleFormSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="name">Full Name *</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      required
-                      placeholder="Your full name"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="email">Email *</Label>
-                    <Input
-                      id="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      required
-                      placeholder="your@email.com"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="phone">Phone Number *</Label>
-                    <Input
-                      id="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      required
-                      placeholder="+91 98765 43210"
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="partySize">Party Size *</Label>
-                    <Select onValueChange={(value) => handleInputChange('partySize', value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Number of guests" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="2-5">2-5 people</SelectItem>
-                        <SelectItem value="6-10">6-10 people</SelectItem>
-                        <SelectItem value="11-20">11-20 people</SelectItem>
-                        <SelectItem value="21-50">21-50 people</SelectItem>
-                        <SelectItem value="50+">50+ people</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="date">Preferred Date *</Label>
-                    <Input
-                      id="date"
-                      type="date"
-                      value={formData.date}
-                      onChange={(e) => handleInputChange('date', e.target.value)}
-                      required
-                    />
-                  </div>
-                  <div>
-                    <Label htmlFor="time">Preferred Time *</Label>
-                    <Select onValueChange={(value) => handleInputChange('time', value)}>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select time" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="morning">Morning (9 AM - 12 PM)</SelectItem>
-                        <SelectItem value="afternoon">Afternoon (12 PM - 5 PM)</SelectItem>
-                        <SelectItem value="evening">Evening (5 PM - 9 PM)</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div>
-                  <Label htmlFor="eventType">Event Type *</Label>
-                  <Select onValueChange={(value) => handleInputChange('eventType', value)}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select event type" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="birthday">Birthday Party</SelectItem>
-                      <SelectItem value="anniversary">Anniversary</SelectItem>
-                      <SelectItem value="meeting">Business Meeting</SelectItem>
-                      <SelectItem value="celebration">Celebration</SelectItem>
-                      <SelectItem value="workshop">Workshop/Class</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full bg-isai-primary hover:bg-isai-primary/90"
-                  disabled={!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time || !formData.partySize || !formData.eventType}
-                >
-                  <MessageCircle className="w-4 h-4 mr-2" />
-                  Send WhatsApp Enquiry
-                </Button>
-
-                <p className="text-sm text-gray-600 text-center">
-                  We'll get back to you within 24 hours to confirm your booking
-                </p>
-              </form>
-            </CardContent>
-          </Card>
-
-          {/* Event Information */}
-          <div className={`space-y-8 transition-all duration-1000 delay-500 ${
-            isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-12'
-          }`}>
-            <Card>
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+          {/* Event Information Cards - Left Side */}
+          <div className="xl:col-span-1 space-y-8">
+            {/* Event Services Card */}
+            <Card className={`bg-[#2a2a2a] border-[#3a3a3a] text-white transition-all duration-700 delay-200 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            } hover:shadow-2xl hover:shadow-[#EFC1A9]/10 hover:border-[#EFC1A9]/30 hover:scale-[1.02] transition-all duration-300`}>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
+                <CardTitle className="flex items-center gap-3 text-[#EFC1A9] text-xl">
+                  <Users className="w-6 h-6" />
                   Event Services
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <ul className="space-y-3 text-gray-700">
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-isai-primary rounded-full"></div>
-                    Private dining experiences
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-isai-primary rounded-full"></div>
-                    Live classical music performances
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-isai-primary rounded-full"></div>
-                    Customized menu planning
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-isai-primary rounded-full"></div>
-                    Decorations and ambiance setup
-                  </li>
-                  <li className="flex items-center gap-3">
-                    <div className="w-2 h-2 bg-isai-primary rounded-full"></div>
-                    Audio equipment for presentations
-                  </li>
+                <ul className="space-y-4">
+                  {[
+                    'Private dining experiences',
+                    'Live classical music performances',
+                    'Customized menu planning',
+                    'Decorations and ambiance setup',
+                    'Audio equipment for presentations',
+                    'Professional photography arrangements'
+                  ].map((service, index) => (
+                    <li key={index} className="flex items-center gap-4 group">
+                      <div className="w-2 h-2 bg-[#EFC1A9] rounded-full group-hover:scale-125 transition-transform duration-300"></div>
+                      <span className="group-hover:text-[#EFC1A9] transition-colors duration-300">{service}</span>
+                    </li>
+                  ))}
                 </ul>
               </CardContent>
             </Card>
 
-            <Card>
+            {/* Timing & Capacity Card */}
+            <Card className={`bg-[#2a2a2a] border-[#3a3a3a] text-white transition-all duration-700 delay-400 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+            } hover:shadow-2xl hover:shadow-[#EFC1A9]/10 hover:border-[#EFC1A9]/30 hover:scale-[1.02] transition-all duration-300`}>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Clock className="w-5 h-5" />
+                <CardTitle className="flex items-center gap-3 text-[#EFC1A9] text-xl">
+                  <Clock className="w-6 h-6" />
                   Timing & Capacity
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4 text-gray-700">
-                  <div>
-                    <h4 className="font-semibold mb-2">Operating Hours</h4>
-                    <p>Monday - Saturday: 8:00 AM - 11:00 PM</p>
-                    <p>Sunday: Closed</p>
+                <div className="space-y-6">
+                  <div className="group">
+                    <h4 className="font-semibold mb-3 text-[#EFC1A9] group-hover:scale-105 transition-transform duration-300">Operating Hours</h4>
+                    <p className="text-white/80 group-hover:text-white transition-colors">Monday - Saturday: 8:00 AM - 11:00 PM</p>
+                    <p className="text-white/80 group-hover:text-white transition-colors">Sunday: Closed</p>
                   </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Capacity</h4>
-                    <p>Maximum 60 guests for private events</p>
-                    <p>Intimate gatherings of 2-20 preferred</p>
+                  <div className="group">
+                    <h4 className="font-semibold mb-3 text-[#EFC1A9] group-hover:scale-105 transition-transform duration-300">Capacity</h4>
+                    <p className="text-white/80 group-hover:text-white transition-colors">Maximum 60 guests for private events</p>
+                    <p className="text-white/80 group-hover:text-white transition-colors">Intimate gatherings of 2-20 preferred</p>
                   </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">Advance Notice</h4>
-                    <p>Minimum 48 hours for small groups</p>
-                    <p>1 week advance for larger events</p>
+                  <div className="group">
+                    <h4 className="font-semibold mb-3 text-[#EFC1A9] group-hover:scale-105 transition-transform duration-300">Advance Notice</h4>
+                    <p className="text-white/80 group-hover:text-white transition-colors">Minimum 48 hours for small groups</p>
+                    <p className="text-white/80 group-hover:text-white transition-colors">1 week advance for larger events</p>
                   </div>
                 </div>
               </CardContent>
             </Card>
+          </div>
 
-            <Card>
-              <CardHeader>
-                <CardTitle>Contact Information</CardTitle>
+          {/* Main Booking Form - Right Side */}
+          <div className="xl:col-span-2">
+            <Card className={`bg-[#2a2a2a] border-[#3a3a3a] text-white transition-all duration-700 delay-600 ${
+              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+            } hover:shadow-2xl hover:shadow-[#EFC1A9]/10 hover:border-[#EFC1A9]/30 hover:scale-[1.01] transition-all duration-300`}>
+              <CardHeader className="border-b border-[#3a3a3a]">
+                <CardTitle className="flex items-center gap-3 text-[#EFC1A9] text-2xl">
+                  <Calendar className="w-7 h-7" />
+                  Event Booking Form
+                </CardTitle>
+                <p className="text-white/70 mt-2">
+                  Fill in your details and we'll get back to you within 24 hours
+                </p>
               </CardHeader>
-              <CardContent>
-                <div className="space-y-3 text-gray-700">
-                  <div className="flex items-center gap-3">
-                    <Phone className="w-4 h-4" />
-                    +91 98765 43210
+              <CardContent className="pt-6">
+                <form onSubmit={handleFormSubmit} className="space-y-6">
+                  {/* Personal Details */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-white">Full Name *</Label>
+                      <Input
+                        id="name"
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        required
+                        placeholder="Your full name"
+                        className="bg-[#1a1a1a] border-[#3a3a3a] text-white placeholder:text-white/50 focus:border-[#EFC1A9] transition-colors duration-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-white">Email *</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        required
+                        placeholder="your@email.com"
+                        className="bg-[#1a1a1a] border-[#3a3a3a] text-white placeholder:text-white/50 focus:border-[#EFC1A9] transition-colors duration-300"
+                      />
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <Mail className="w-4 h-4" />
-                    events@isai.cafe
+
+                  {/* Contact & Party Size */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="phone" className="text-white">Phone Number *</Label>
+                      <Input
+                        id="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                        required
+                        placeholder="+91 98765 43210"
+                        className="bg-[#1a1a1a] border-[#3a3a3a] text-white placeholder:text-white/50 focus:border-[#EFC1A9] transition-colors duration-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="partySize" className="text-white">Party Size *</Label>
+                      <Select onValueChange={(value) => handleInputChange('partySize', value)}>
+                        <SelectTrigger className="bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#EFC1A9] transition-colors duration-300">
+                          <SelectValue placeholder="Number of guests" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-[#2a2a2a] border-[#3a3a3a] text-white">
+                          <SelectItem value="2-5">2-5 people</SelectItem>
+                          <SelectItem value="6-10">6-10 people</SelectItem>
+                          <SelectItem value="11-20">11-20 people</SelectItem>
+                          <SelectItem value="21-50">21-50 people</SelectItem>
+                          <SelectItem value="50+">50+ people</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-3">
-                    <MapPin className="w-4 h-4" />
-                    123 Art Street, Music District
+
+                  {/* Date & Time */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <Label htmlFor="date" className="text-white">Preferred Date *</Label>
+                      <Input
+                        id="date"
+                        type="date"
+                        value={formData.date}
+                        onChange={(e) => handleInputChange('date', e.target.value)}
+                        required
+                        className="bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#EFC1A9] transition-colors duration-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="time" className="text-white">Preferred Time *</Label>
+                      <Select onValueChange={(value) => handleInputChange('time', value)}>
+                        <SelectTrigger className="bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#EFC1A9] transition-colors duration-300">
+                          <SelectValue placeholder="Select time" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-[#2a2a2a] border-[#3a3a3a] text-white">
+                          <SelectItem value="morning">Morning (9 AM - 12 PM)</SelectItem>
+                          <SelectItem value="afternoon">Afternoon (12 PM - 5 PM)</SelectItem>
+                          <SelectItem value="evening">Evening (5 PM - 9 PM)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
-                </div>
+
+                  {/* Event Type */}
+                  <div className="space-y-2">
+                    <Label htmlFor="eventType" className="text-white">Event Type *</Label>
+                    <Select onValueChange={(value) => handleInputChange('eventType', value)}>
+                      <SelectTrigger className="bg-[#1a1a1a] border-[#3a3a3a] text-white focus:border-[#EFC1A9] transition-colors duration-300">
+                        <SelectValue placeholder="Select event type" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#2a2a2a] border-[#3a3a3a] text-white">
+                        <SelectItem value="birthday">Birthday Party</SelectItem>
+                        <SelectItem value="anniversary">Anniversary</SelectItem>
+                        <SelectItem value="meeting">Business Meeting</SelectItem>
+                        <SelectItem value="celebration">Celebration</SelectItem>
+                        <SelectItem value="workshop">Workshop/Class</SelectItem>
+                        <SelectItem value="other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button 
+                    type="submit" 
+                    className="w-full bg-[#EFC1A9] hover:bg-[#EFC1A9]/90 text-[#1a1a1a] font-semibold py-6 text-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl hover:shadow-[#EFC1A9]/20"
+                    disabled={!formData.name || !formData.email || !formData.phone || !formData.date || !formData.time || !formData.partySize || !formData.eventType}
+                  >
+                    <MessageCircle className="w-5 h-5 mr-3" />
+                    Send WhatsApp Enquiry
+                  </Button>
+
+                  <p className="text-white/60 text-center text-sm">
+                    We'll get back to you within 24 hours to confirm your booking details
+                  </p>
+                </form>
               </CardContent>
             </Card>
           </div>
@@ -504,7 +497,7 @@ const Footer = () => {
 // Main Events Component
 export default function Events() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-[#1a1a1a]">
       <Navigation />
       <EventsHero />
       <EventBookingForm />

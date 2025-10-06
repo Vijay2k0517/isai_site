@@ -68,24 +68,26 @@ const Navigation = () => {
 
         {/* Phone Number - Right side outside nav */}
         <div className="flex-shrink-0 ml-4">
-          <div className="glass-nav rounded-full px-4 py-2 shadow-lg flex items-center space-x-2">
-            <svg 
-              className="w-4 h-4 text-white" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth={2} 
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
-              />
-            </svg>
-            <span className="text-white font-semibold text-sm md:text-base">
-              +91 7806929935
-            </span>
-          </div>
+          <a href="tel:+917806929935" className="block">
+            <div className="glass-nav rounded-full px-4 py-2 shadow-lg flex items-center space-x-2 hover:scale-105 transition-transform duration-300 cursor-pointer">
+              <svg 
+                className="w-4 h-4 text-white" 
+                fill="none" 
+                stroke="currentColor" 
+                viewBox="0 0 24 24"
+              >
+                <path 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round" 
+                  strokeWidth={2} 
+                  d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" 
+                />
+              </svg>
+              <span className="text-white font-semibold text-sm md:text-base">
+                +91 7806929935
+              </span>
+            </div>
+          </a>
         </div>
       </div>
     </nav>
@@ -851,55 +853,55 @@ export default function Menu() {
         title="Appetizers" 
         items={menuData.appetizers} 
         icon={Utensils}
-        delay={200}
+        delay={100}
       />
       <MenuSection 
         title="Salads" 
         items={menuData.salads} 
         icon={Utensils}
-        delay={300}
+        delay={150}
       />
       <MenuSection 
         title="All Day Breakfast" 
         items={menuData['All Day Breakfast']} 
         icon={Utensils}
-        delay={400}
+        delay={200}
       />
       <MenuSection 
         title="Isai's Originals" 
         items={menuData["Isai's Originals"]} 
         icon={Utensils}
-        delay={500}
+        delay={250}
       />
       <MenuSection 
         title="Eggs" 
         items={menuData.eggs} 
         icon={Utensils}
-        delay={600}
+        delay={300}
       />
       <MenuSection 
         title="Burgers & Sandwiches" 
         items={menuData['Burgers & Sandwiches']} 
         icon={Utensils}
-        delay={700}
+        delay={350}
       />
       <MenuSection 
         title="Beverages" 
         items={menuData.beverages} 
         icon={Coffee}
-        delay={800}
+        delay={400}
       />
       <MenuSection 
         title="Sandwiches" 
         items={menuData.sandwiches} 
         icon={Utensils}
-        delay={900}
+        delay={450}
       />
       <MenuSection 
         title="Isai's Seasonal Specials" 
         items={menuData["Isai's Seasonal Specials"]} 
         icon={Cookie}
-        delay={1000}
+        delay={500}
       />
       <Footer />
     </div>
